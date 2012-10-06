@@ -11,6 +11,9 @@ package
 	public class Main extends Sprite 
 	{
 		private const MAX_LINES	:int = 24;
+		
+		private var MAX_RELEASE:int = 2;
+		
 		private var outLines	:Vector.<TextField>;
 		
 		public var mouseAndKey:Bitmap = new Resources.MouseAndKey();
@@ -65,10 +68,6 @@ package
 				"   tRelease: " 			+ Input.getKeyRelease( Keyboard.T ) + " M: " + Input.getMouseRelease( Input.mouse )	+
 				"   tDouble: " 				+ Input.getKeyDouble( Keyboard.T )	+ " M: " + Input.getMouseDouble( Input.mouse )	+
 				"   tTap: " 				+ Input.getKeyTap( Keyboard.T ) 	+ " M: " + Input.getMouseTap( Input.mouse );
-				
-			/* Populate a textfield on the screen based on the frame
-			var tf:TextField = outLines[ Time.frameCount % MAX_LINES ];
-			tf.text = out;*/
 			
 			// Change the color of the key based on the T's state
 			if ( Input.getKeyDown( Keyboard.T ) )
@@ -79,11 +78,18 @@ package
 			}
 				
 			else if ( Input.getKey( Keyboard.T ) )
-				{
-					Display.ui.graphics.beginFill(0x0000FF);
-					Display.ui.graphics.drawRect(309, 40, 104, 85);
-					Display.ui.graphics.endFill();
-				}
+			{
+				Display.ui.graphics.beginFill(0x0000FF);
+				Display.ui.graphics.drawRect(309, 40, 104, 85);
+				Display.ui.graphics.endFill();
+			}
+				
+			else if ( Input.getKeyRelease ( Keyboard.T ) )
+			{
+				Display.ui.graphics.beginFill(0x00FF00);
+				Display.ui.graphics.drawRect(309, 40, 104, 85);
+				Display.ui.graphics.endFill();
+			}
 			
 			// Change the left mouse button based on its state
 			else if ( Input.getMouseDown( Input.mouse ) )
@@ -94,11 +100,18 @@ package
 			}
 				
 			else if ( Input.getMouse( Input.mouse ) )
-				{
-					Display.ui.graphics.beginFill(0x0000FF);
-					Display.ui.graphics.drawCircle(320, 200, 32);
-					Display.ui.graphics.endFill();
-				}
+			{
+				Display.ui.graphics.beginFill(0x0000FF);
+				Display.ui.graphics.drawCircle(320, 200, 32);
+				Display.ui.graphics.endFill();
+			}
+			
+			else if ( Input.getMouseRelease ( Input.mouse ) )
+			{
+				Display.ui.graphics.beginFill(0x00FF00);
+				Display.ui.graphics.drawCircle(320, 200, 32);
+				Display.ui.graphics.endFill();
+			}
 				
 			else
 				{

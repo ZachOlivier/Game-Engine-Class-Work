@@ -14,17 +14,17 @@ package engine
 		static private const UP			: uint = 0;
 		static private const PRESS		: uint = 1;
 		static private const HELD		: uint = 2;
-		static private const RELEASE    : uint = 3;
-		static private const DOUBLE     : uint = 4;
-		static private const TAP     	: uint = 5;
+		static private const DOUBLE     : uint = 3;
+		static private const TAP     	: uint = 4;
 
 		static private const START_PRESS:uint = 9999;
 		
-		static private const END_PRESS:uint = 9999;
+		static private const START_END_PRESS:uint = 9997;
+		static private const END_PRESS:uint = 9998;
 		
 		static private var keys		: Vector.<uint>;
 		static private var active	: Vector.<KeyState>;
-		static private var press	: Vector.<KeyState>;
+		static private var press	: Vector.<uint>;
 		
 		static public var mouse	: uint;
 		
@@ -37,7 +37,7 @@ package engine
 
 			keys 	= new Vector.<uint>(256);	// state of all keys
 			active 	= new Vector.<KeyState>();	// only keys in a state other than up
-			press 	= new Vector.<KeyState>();	// hold all the pressed times
+			press 	= new Vector.<uint>(256);	// hold all the pressed times
 			
 			mouse	= keys[ 255 ];
 			
@@ -59,7 +59,7 @@ package engine
 			
 			var keyState:KeyState = new KeyState( e.keyCode, Time.frameCount );
 			active.push( keyState );
-			press.push( keyState );
+			press.push( Time.frameCount );
 		}
 		
 		/// Flash Event: The mouse was just pressed
@@ -74,55 +74,19 @@ package engine
 			
 			var keyState:KeyState = new KeyState( mouse, Time.frameCount );
 			active.push( keyState );
-			press.push( keyState );
+			press.push( Time.frameCount );
 		}
 		
 		/// Flash Event: A key was raised
 		static public function onKeyUp( e:KeyboardEvent ):void
 		{
-			keys[ e.keyCode ] = UP;
-			
-			// Loop through all active keys; there is a slight chance that
-			// more than one entry for a key being "down" snuck in due to
-			// how Flash / OS handles input.
-			var keyState:KeyState;
-			for ( var i:int = active.length - 1; i > -1; i-- )
-			{
-				keyState = active[i];				// get next keystate in active list
-				if ( keyState.code == e.keyCode )	// if the code matches
-					active.splice( i, 1 );			// remove
-			}
-			
-			for ( var p:int = press.length - 1; p > -1; p-- )
-			{
-				keyState = press[p];				// get next keystate in active list
-				if ( keyState.code == e.keyCode )	// if the code matches
-					press.splice( p, 1 );			// remove
-			}
+			keys[ e.keyCode ] = START_END_PRESS;
 		}
 		
 		/// Flash Event: The mouse was raised
 		static public function onMouseUp( e:MouseEvent ):void
 		{
-			keys[ mouse ] = UP;
-			
-			// Loop through all active keys; there is a slight chance that
-			// more than one entry for a key being "down" snuck in due to
-			// how Flash / OS handles input.
-			var keyState:KeyState;
-			for ( var i:int = active.length - 1; i > -1; i-- )
-			{
-				keyState = active[i];				// get next keystate in active list
-				if ( keyState.code == mouse )		// if the code matches
-					active.splice( i, 1 );			// remove
-			}
-			
-			for ( var p:int = press.length - 1; p > -1; p-- )
-			{
-				keyState = press[p];				// get next keystate in active list
-				if ( keyState.code == mouse )		// if the code matches
-					press.splice( p, 1 );			// remove
-			}
+			keys[ mouse ] = START_END_PRESS;
 		}
 		
 		/// Call this once per frame
@@ -131,11 +95,21 @@ package engine
 			var code	:uint;
 			var keyState:KeyState;
 			
+			var now		:int;
+			
 			// Go through all the inputs currently mark as being active...
 			for ( var i:int = active.length - 1; i > -1; i-- )
 			{
 				keyState = active[i];
 				code = keyState.code;
+				
+				// If a key is pressed and it's the frame after it was pressed,
+				// change the state.
+				if ( keys[code] == PRESS && keyState.frame < Time.frameCount )
+				{
+					keys[code] = HELD;
+					continue;
+				}
 				
 				// If a press is just starting, mark it as started and update
 				// the frame for the press to be this frame.
@@ -145,28 +119,31 @@ package engine
 					keyState.frame = Time.frameCount;
 				}
 				
-				// If a key is pressed and it's the frame after it was pressed,
-				// change the state.
-				if ( keys[code] == PRESS && keyState.frame < Time.frameCount )
-				{
-					keys[code] = HELD;
-					continue;
-				}
-
-				// If a key that was pressed is now not, release
+				// If a release occurred, set to up
 				if ( keys[code] == END_PRESS )
 				{
-					keys[code] = RELEASE;
+					keys[code] = UP;
+					
+					for ( var j:int = active.length - 1; j > -1; j-- )
+					{
+						keyState = active[j];				// get next keystate in active list
+						if ( keyState.code == mouse )		// if the code matches
+							active.splice( j, 1 );			// remove
+					}
+					
+					for ( var h:int = active.length - 1; h > -1; h-- )
+					{
+						keyState = active[h];				// get next keystate in active list
+						if ( keyState.code == 84 )	// if the code matches
+							active.splice( h, 1 );			// remove
+					}
 				}
-				
-				// If a key was pressed then released, and pressed then released again
-				// in a short time, double press
-				if ( press.length > 1 && press[0].frame - press[1].frame < .5 && press[0].code == press[1].code )
+
+				// If a key that was pressed is now not, start release
+				if ( keys[code] == START_END_PRESS )
 				{
-					keys[code] = DOUBLE;
+					keys[code] = END_PRESS;
 				}
-				
-				// If a key was pressed then released in a short time, tap
 			}
 		}
 		
@@ -185,7 +162,7 @@ package engine
 		/// Was the key being HELD back to "up"?
 		static public function getKeyRelease( code:uint ):Boolean
 		{
-			return keys[ code ] == RELEASE;
+			return keys[ code ] == END_PRESS;
 		}
 		
 		/// Was the key that was PRESS-RELEASE, PRESS-RELEASE again without HELD?
@@ -215,7 +192,7 @@ package engine
 		/// Was the mouse being HELD back to "up"?
 		static public function getMouseRelease( code:uint ):Boolean
 		{
-			return keys[ code ] == RELEASE;
+			return keys[ code ] == END_PRESS;
 		}
 		
 		/// Was the mouse PRESS-RELEASE, PRESS-RELEASE again without HELD?
