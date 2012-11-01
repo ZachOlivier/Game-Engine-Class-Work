@@ -134,7 +134,7 @@ package engine
 					for ( var h:int = active.length - 1; h > -1; h-- )
 					{
 						keyState = active[h];				// get next keystate in active list
-						if ( keyState.code == 84 )	// if the code matches
+						if ( keyState.code == 32 )	// if the code matches
 							active.splice( h, 1 );			// remove
 					}
 				}

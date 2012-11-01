@@ -60,31 +60,31 @@ package
 			Time.update();
 			Input.update();
 
-			// Generate a string based on the input state of T
+			// Generate a string based on the input state of SPACE
 			var out:String =
 				String( Time.frameCount ) 	+ ": " 								+
-				"	tDown: " 				+ Input.getKeyDown( Keyboard.T )	+ " M: " + Input.getMouseDown( Input.mouse ) 	+ 
-				"   tHeld: " 				+ Input.getKey( Keyboard.T ) 		+ " M: " + Input.getMouse( Input.mouse )		+
-				"   tRelease: " 			+ Input.getKeyRelease( Keyboard.T ) + " M: " + Input.getMouseRelease( Input.mouse )	+
-				"   tDouble: " 				+ Input.getKeyDouble( Keyboard.T )	+ " M: " + Input.getMouseDouble( Input.mouse )	+
-				"   tTap: " 				+ Input.getKeyTap( Keyboard.T ) 	+ " M: " + Input.getMouseTap( Input.mouse );
+				"	Down: " 				+ Input.getKeyDown( Keyboard.SPACE )	+ " M: " + Input.getMouseDown( Input.mouse ) 	+ 
+				"   Held: " 				+ Input.getKey( Keyboard.SPACE ) 		+ " M: " + Input.getMouse( Input.mouse )		+
+				"   Release: " 			+ Input.getKeyRelease( Keyboard.SPACE ) + " M: " + Input.getMouseRelease( Input.mouse )	+
+				"   Double: " 				+ Input.getKeyDouble( Keyboard.SPACE )	+ " M: " + Input.getMouseDouble( Input.mouse )	+
+				"   Tap: " 				+ Input.getKeyTap( Keyboard.SPACE ) 	+ " M: " + Input.getMouseTap( Input.mouse );
 			
-			// Change the color of the key based on the T's state
-			if ( Input.getKeyDown( Keyboard.T ) )
+			// Change the color of the key based on the SPACE's state
+			if ( Input.getKeyDown( Keyboard.SPACE ) )
 			{
 				Display.ui.graphics.beginFill(0x000000);
 				Display.ui.graphics.drawRect(309, 40, 104, 85);
 				Display.ui.graphics.endFill();
 			}
 				
-			else if ( Input.getKey( Keyboard.T ) )
+			else if ( Input.getKey( Keyboard.SPACE ) )
 			{
 				Display.ui.graphics.beginFill(0x0000FF);
 				Display.ui.graphics.drawRect(309, 40, 104, 85);
 				Display.ui.graphics.endFill();
 			}
 				
-			else if ( Input.getKeyRelease ( Keyboard.T ) )
+			else if ( Input.getKeyRelease ( Keyboard.SPACE ) )
 			{
 				Display.ui.graphics.beginFill(0x00FF00);
 				Display.ui.graphics.drawRect(309, 40, 104, 85);
