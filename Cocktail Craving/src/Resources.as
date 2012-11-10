@@ -11,7 +11,7 @@ package
 	
 	public class Resources
 	{
-		// My cocktails
+		// My cocktail bitmaps
 		[Embed(source = "bitmaps/blueCocktail.png")]
 		public static var BlueCocktail	:Class;
 		
@@ -27,7 +27,7 @@ package
 		[Embed(source = "bitmaps/yellowCocktail.png")]
 		public static var YellowCocktail:Class;
 		
-		// My backgrounds
+		// My other bitmaps
 		[Embed(source = "bitmaps/winScreen.png")]
 		public static var WinScreen		:Class;
 		
@@ -40,7 +40,7 @@ package
 		[Embed(source = "bitmaps/cocktailParty.png")]
 		public static var CocktailParty	:Class;
 		
-		// My drunk meter
+		// My drunk meter bitmaps
 		[Embed(source = "bitmaps/drunkZero.png")]
 		public static var DrunkZero		:Class;
 		
@@ -78,7 +78,7 @@ package
 		public static var TooDrunk		:Class;
 		
 		
-		// My mouths
+		// My player bitmaps
 		[Embed(source = "bitmaps/mouthOpen.png")]
 		public static var MouthOpen		:Class;
 		
@@ -87,17 +87,38 @@ package
 		
 		
 		// My sounds
+		[Embed(source = "sounds/badCocktail.mp3")]
+		public static var BadCocktail	:Class;
+		
+		[Embed(source = "sounds/goodCocktail.mp3")]
+		public static var GoodCocktail	:Class;
+		
+		[Embed(source = "sounds/loseGame.mp3")]
+		public static var LoseGame		:Class;
+		
+		[Embed(source = "sounds/mouthClose.mp3")]
+		public static var MouthClose	:Class;
+		
+		[Embed(source = "sounds/mouthOpen.mp3")]
+		public static var OpenMouth		:Class;
+		
+		[Embed(source = "sounds/youWin.mp3")]
+		public static var YouWin		:Class;
+		
+		[Embed(source = "sounds/gameMusic.mp3")]
+		public static var GameMusic		:Class;
 		
 		
-		
+		// My function for adding sound to the game
 		static public function init():void
 		{
-			//SoundManager.add( new AudioClip( BadCocktail, false ) );
-			//SoundManager.add( new AudioClip( ChangeMouth, false ) );
-			//SoundManager.add( new AudioClip( GoodCocktail, false ) );
-			//SoundManager.add( new AudioClip( LoseDrunk, false ) );
-			//SoundManager.add( new AudioClip( LoseMiss, false ) );
-			//SoundManager.add( new AudioClip( YouWin, false ) );
+			SoundManager.add( new AudioClip( BadCocktail, false ) );
+			SoundManager.add( new AudioClip( GoodCocktail, false ) );
+			SoundManager.add( new AudioClip( LoseGame, false ) );
+			SoundManager.add( new AudioClip( MouthClose, false ) );
+			SoundManager.add( new AudioClip( OpenMouth, false ) );
+			SoundManager.add( new AudioClip( YouWin, false ) );
+			SoundManager.add( new AudioClip( GameMusic, true ) );
 		}
 	}
 }

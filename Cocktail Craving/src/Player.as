@@ -27,70 +27,80 @@ package
 		
 		// CTOR
 		public function Player()
-		{	
+		{
+			// Set the player and add the bitmap to the sprite player
 			thisPlayer = new Resources.MouthOpen;
-			
 			addChild( thisPlayer );
 		}
 		
 		
+		// Update the player when called
 		public function update():void
 		{
-			// Movement
+			// If the player pushes s or arrow down
 			if ( Input.getKey( Keyboard.S ) || Input.getKey( Keyboard.DOWN ) )
 			{
+				// Move the player down
 				this.y += SPEED;
 			}
-				
+			
+			// If the player pushes w or arrow up
 			if ( Input.getKey( Keyboard.W ) || Input.getKey( Keyboard.UP ) )
 			{
+				// Move the player up
 				this.y -= SPEED;
 			}
 			
-			// Mouth
+			// If the player pushes space or the left mouse button
 			if ( Input.getKeyDown( Keyboard.SPACE ) || Input.getMouseButtonDown( 0 ) )
 			{
+				// Change the face
 				face++;
 				
+				// If face is greater than 1, set face to 0
 				if ( face > 1 )
 				{
 					face = 0;
 				}
 				
+				// Depending on if the player clicks
 				switch ( face )
 				{
+					// Change the player and decide whether the player can touch cocktails
 					case 0 :
 						removeChild( thisPlayer );
 						thisPlayer = new Resources.MouthOpen;
 						addChild( thisPlayer );
 						mouthOpen = true;
-						//Systems.sound.play( Resources.ChangeMouth );
-						
+						Systems.sound.play( Resources.OpenMouth );
 						break;
-						
 					case 1 :
 						removeChild( thisPlayer );
 						thisPlayer = new Resources.MouthClosed;
 						addChild( thisPlayer );
 						mouthOpen = false;
-						//Systems.sound.play( Resources.ChangeMouth );
-						
+						Systems.sound.play( Resources.MouthClose );
 						break;
 				}
 			}
 			
+			// If the player's y position is too far down
 			if ( this.y > Display.height - 86 )
 			{
+				// Stop the player from moving
 				this.y -= 25;
 			}
 			
+			// If the player's y position is too far up
 			if ( this.y < 0 )
 			{
+				// Stop the player from moving
 				this.y += 25;
 			}
 		}
 		
 		
+		// My function for deciding if the player is colliding with a cocktail
 		public function isColliding( cocktail:Cocktail ):Boolean
 		{
 			var length		:Number = ( halfWidth + cocktail.halfWidth );

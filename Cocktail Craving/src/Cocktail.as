@@ -24,9 +24,11 @@ package
 		
 		// CTOR
 		public function Cocktail()
-		{	
+		{
+			// Get a random number between 0 and 4 for color
 			color = ( Math.random() * 4 );
 			
+			// Set the color based on the random number
 			if ( color == 0 )
 			{
 				thisCocktail = new Resources.BlueCocktail();
@@ -48,21 +50,10 @@ package
 				thisCocktail = new Resources.YellowCocktail();
 			}
 			
-			addChild( thisCocktail );
-			
+			// Resize the bitmap and add it to the sprite cocktail
 			thisCocktail.width = halfWidth * 2;
 			thisCocktail.height = halfHeight * 2;
-		}
-		
-		
-		public function dispose():void
-		{
-			isDisposed = true;
-		}
-		
-		
-		public function update():void
-		{
+			addChild( thisCocktail );
 		}
 	}
 }

@@ -17,16 +17,19 @@ package
 		// CTOR
 		public function DrunkMeter()
 		{
+			// Set the drunk meter and add the bitmap to the sprite drunk meter
 			drunkMeter = new Resources.DrunkZero;
-			
 			addChild( drunkMeter );
 		}
-	
-	
+		
+		
+		// Update the drunk meter when called
 		public function update():void
 		{
+			// Depending on how drunk the player is
 			switch ( Global.drunk )
 			{
+				// Change the drunk meter
 				case 0 :
 					drunkMeter = new Resources.DrunkZero;
 					addChild( drunkMeter );
