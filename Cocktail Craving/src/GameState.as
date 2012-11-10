@@ -173,7 +173,7 @@ package
 				}
 				
 				// If a cocktail gets past the player and off the stage
-				else if ( cocktail.x < -120 )
+				else if ( cocktail.x < -160 )
 				{
 					// Remove the cocktail
 					Display.main.removeChild( cocktail );
