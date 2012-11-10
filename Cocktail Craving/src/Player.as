@@ -30,6 +30,8 @@ package
 		{
 			// Set the player and add the bitmap to the sprite player
 			thisPlayer = new Resources.MouthOpen;
+			thisPlayer.width = halfWidth * 2;
+			thisPlayer.height = halfHeight * 2;
 			addChild( thisPlayer );
 		}
 		
@@ -97,6 +99,9 @@ package
 				// Stop the player from moving
 				this.y += 25;
 			}
+			
+			thisPlayer.width = halfWidth * 2;
+			thisPlayer.height = halfHeight * 2;
 		}
 		
 		

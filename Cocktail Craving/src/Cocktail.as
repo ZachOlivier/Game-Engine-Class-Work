@@ -4,6 +4,7 @@ package
 	import flash.display.Bitmap;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
+	import flash.filters.BlurFilter;
 	
 	/**
 	 * ...

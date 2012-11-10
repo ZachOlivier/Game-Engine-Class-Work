@@ -82,8 +82,6 @@ package
 			
 			// Create my player, place it, size it and add it to the display
 			player = new Player();
-			player.width = 80;
-			player.height = 96;
 			player.y = ( Display.height / 2 );
 			Display.main.addChild( player );
 			
@@ -98,6 +96,10 @@ package
 		// Constantly update this state until the game changes states
 		public function update():void
 		{
+			// Change the blur effect for both the main layer and the background layer ( the player, cocktails and tables )
+			Display.main.filters = [ new BlurFilter ( Global.drunk, Global.drunk ) ];
+			Display.background.filters = [ new BlurFilter ( Global.drunk, Global.drunk ) ];
+			
 			// Change the text when the score increases
 			tfRedScore.text = "RED " + Global.redScore + " / 10";
 			

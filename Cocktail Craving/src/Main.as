@@ -32,13 +32,11 @@ package
 			Systems.init( stage );
 			
 			// Remember to comment this out for presenting!
-			addChild( new Stats() );
+			//addChild( new Stats() );
 			
 			// Make sure the game is reset
 			Global.drunk = 0;
 			Global.redScore = 0;
-			
-			//Display.stage.color = 0x000000;
 			
 			State.current = new IntroState(); // Change to Intro State!
 			
