@@ -72,7 +72,7 @@ package engine
 			for ( var i:int = 0; i < MAX; i++ )
 			{
 				tf = systf();
-				fields.push( tf );			
+				fields.push( tf );
 				Display.console.addChild( tf );
 				tf.y = 18 * i;
 			}

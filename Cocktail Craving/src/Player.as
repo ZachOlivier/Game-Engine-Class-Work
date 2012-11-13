@@ -72,6 +72,8 @@ package
 					case 0 :
 						removeChild( thisPlayer );
 						thisPlayer = new Resources.MouthOpen;
+						thisPlayer.width = halfWidth * 2;
+						thisPlayer.height = halfHeight * 2;
 						addChild( thisPlayer );
 						mouthOpen = true;
 						Systems.sound.play( Resources.OpenMouth );
@@ -79,6 +81,8 @@ package
 					case 1 :
 						removeChild( thisPlayer );
 						thisPlayer = new Resources.MouthClosed;
+						thisPlayer.width = halfWidth * 2;
+						thisPlayer.height = halfHeight * 2;
 						addChild( thisPlayer );
 						mouthOpen = false;
 						Systems.sound.play( Resources.MouthClose );
@@ -99,9 +103,6 @@ package
 				// Stop the player from moving
 				this.y += 25;
 			}
-			
-			thisPlayer.width = halfWidth * 2;
-			thisPlayer.height = halfHeight * 2;
 		}
 		
 		

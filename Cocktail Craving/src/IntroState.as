@@ -57,19 +57,19 @@ package
 			Display.ui.addChild( tf );
 			
 			tf = maketf();
-			tf.text = "Hold 'W' or ARROW UP to move up";
+			tf.text = "Hold 'W' or Arrow Up to move up";
 			tf.x = 95;
 			tf.y = 170;
 			Display.ui.addChild( tf );
 			
 			tf = maketf();
-			tf.text = "Hold 'S' or ARROW DOWN to move down";
+			tf.text = "Hold 'S' or Arrow Down to move down";
 			tf.x = 95;
 			tf.y = 220;
 			Display.ui.addChild( tf );
 			
 			tf = maketf();
-			tf.text = "SPACE or LEFT MOUSE to change mouth";
+			tf.text = "SPACE or Left Click to open/close mouth";
 			tf.x = 95;
 			tf.y = 270;
 			Display.ui.addChild( tf );
@@ -81,7 +81,7 @@ package
 			Display.ui.addChild( tf );
 			
 			tf = maketf();
-			tf.text = "Dont Forget You Can Close Your Mouth!";
+			tf.text = "Try the controls out now!";
 			tf.x = 95;
 			tf.y = 470;
 			Display.ui.addChild( tf );
